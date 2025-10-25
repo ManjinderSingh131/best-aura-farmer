@@ -31,7 +31,7 @@ export const AuraFarmerList = () => {
   return (
     <div className="container mt-3">
       <h2 className="font-bold mb-3">All Aura Farmers</h2>
-      <ul className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
         {list.map((farmer) => (
           <AuraFarmerListCard
             key={farmer.id}
