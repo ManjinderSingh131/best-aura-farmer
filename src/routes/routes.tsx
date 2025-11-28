@@ -1,10 +1,12 @@
 import { Route } from "react-router-dom";
 import Layout from "../components/layout/Layout";
 import { AuraFarmerList } from "../components/aura-farmer-list/AuraFarmerList";
+import { Home } from "@/components/home/Home";
+
 
 export const routes = (
   <Route path="/" element={<Layout />}>
-    <Route index element={<div>Welcome to the Home Page</div>} />
+    <Route index element={<Home />} />
 
     <Route path="aura-farmers">
       <Route

@@ -1,0 +1,47 @@
+export const getAllAuraFarmers = async () => {
+    try {
+        const resonse = await fetch('http://localhost:3000/aura-farmer');
+        const data = await resonse.json();
+        return data;
+    } catch(error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+export const updateAuraFarmerVote = async (auraFarmerId: number) => {
+    try {
+        const resonse = await fetch(`http://localhost:3000/aura-farmer/${auraFarmerId}/update-vote`, {
+            method: 'POST',
+        });
+        const data = await resonse.json();
+        return data;
+    } catch(error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+export const unvoteAuraFarmer = async (auraFarmerId: number) => {
+    try {
+        const resonse = await fetch(`http://localhost:3000/aura-farmer/${auraFarmerId}/unvote`, {
+            method: 'POST',
+        });
+        const data = await resonse.json();
+        return data;
+    } catch(error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+export const getAuraFarmShowcase = async (auraFarmerId: number) => {
+    try {
+        const resonse = await fetch(`http://localhost:3000/aura-farmer/${auraFarmerId}/showcase`);
+        const data = await resonse.json();
+        return data;
+    } catch(error) {
+        console.log(error);
+        throw error;
+    }
+}
