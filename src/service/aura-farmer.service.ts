@@ -1,8 +1,9 @@
 import { apiFetch } from "@/lib/api-client";
+import { env } from "@/config/env";
 
 export const getAllAuraFarmers = async () => {
     try {
-        const resonse = await apiFetch('http://localhost:3000/aura-farmer');
+        const resonse = await apiFetch(`${env.apiUrl}/aura-farmer`);
         const data = await resonse.json();
         return data;
 
@@ -14,7 +15,7 @@ export const getAllAuraFarmers = async () => {
 
 export const updateAuraFarmerVote = async (auraFarmerId: number) => {
     try {
-        const resonse = await apiFetch(`http://localhost:3000/aura-farmer/${auraFarmerId}/update-vote`, {
+        const resonse = await apiFetch(`${env.apiUrl}/aura-farmer/${auraFarmerId}/update-vote`, {
             method: 'POST',
         });
         const data = await resonse.json();
@@ -28,7 +29,7 @@ export const updateAuraFarmerVote = async (auraFarmerId: number) => {
 
 export const unvoteAuraFarmer = async (auraFarmerId: number) => {
     try {
-        const resonse = await apiFetch(`http://localhost:3000/aura-farmer/${auraFarmerId}/unvote`, {
+        const resonse = await apiFetch(`${env.apiUrl}/aura-farmer/${auraFarmerId}/unvote`, {
             method: 'POST',
         });
         const data = await resonse.json();
@@ -42,7 +43,7 @@ export const unvoteAuraFarmer = async (auraFarmerId: number) => {
 
 export const getAuraFarmShowcase = async (auraFarmerId: number) => {
     try {
-        const resonse = await apiFetch(`http://localhost:3000/aura-farmer/${auraFarmerId}/showcase`);
+        const resonse = await apiFetch(`${env.apiUrl}/aura-farmer/${auraFarmerId}/showcase`);
         const data = await resonse.json();
         return data;
 

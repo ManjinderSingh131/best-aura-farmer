@@ -1,4 +1,5 @@
 import { apiFetch } from "@/lib/api-client";
+import { env } from "@/config/env";
 
 export interface FarmerRequest {
   auraFarmerAddReqId: number;
@@ -10,7 +11,7 @@ export interface FarmerRequest {
 
 export const getPendingFarmerRequests = async (adminSecret: string): Promise<FarmerRequest[]> => {
   try {
-    const response = await apiFetch('http://localhost:3000/aura-farmer/admin/farmer-requests', {
+    const response = await apiFetch(`${env.apiUrl}/aura-farmer/admin/farmer-requests`, {
       method: 'GET',
       headers: {
         'x-admin-secret': adminSecret,
@@ -26,7 +27,7 @@ export const getPendingFarmerRequests = async (adminSecret: string): Promise<Far
 
 export const approveFarmerRequest = async (requestId: number, characterAvatar: string, adminSecret: string) => {
   try {
-    const response = await apiFetch(`http://localhost:3000/aura-farmer/admin/farmer-requests/approve/${requestId}`, {
+    const response = await apiFetch(`${env.apiUrl}/aura-farmer/admin/farmer-requests/approve/${requestId}`, {
       method: 'POST',
       headers: {
         'x-admin-secret': adminSecret,
@@ -44,7 +45,7 @@ export const approveFarmerRequest = async (requestId: number, characterAvatar: s
 
 export const deleteFarmerRequest = async (requestId: number, adminSecret: string) => {
   try {
-    const response = await apiFetch(`http://localhost:3000/aura-farmer/admin/farmer-requests/delete/${requestId}`, {
+    const response = await apiFetch(`${env.apiUrl}/aura-farmer/admin/farmer-requests/delete/${requestId}`, {
       method: 'POST',
       headers: {
         'x-admin-secret': adminSecret,

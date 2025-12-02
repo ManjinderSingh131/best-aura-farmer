@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react"
 import { Spinner } from "../ui/spinner"
+import { env } from "@/config/env"
 
 type SubmitShowcaseDialogProps = {
     auraFarmerId: number;
@@ -32,8 +33,7 @@ export function SubmitShowcaseDialog({ auraFarmerId }: SubmitShowcaseDialogProps
         setSuccess(null)
 
         try {
-            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-            const response = await fetch(`${apiUrl}/aura-farmer/${auraFarmerId}/showcase-submit`, {
+            const response = await fetch(`${env.apiUrl}/aura-farmer/${auraFarmerId}/showcase-submit`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label"
 import { useState } from "react"
 import { Spinner } from "../ui/spinner"
 import { Textarea } from "../ui/textarea"
+import { env } from "@/config/env"
 
 export function AddAuraFarmerDialog() {
     const [name, setName] = useState("")
@@ -30,8 +31,7 @@ export function AddAuraFarmerDialog() {
         setSuccess(null)
 
         try {
-            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-            const response = await fetch(`${apiUrl}/aura-farmer/request-add`, {
+            const response = await fetch(`${env.apiUrl}/aura-farmer/request-add`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

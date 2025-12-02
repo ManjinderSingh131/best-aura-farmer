@@ -1,4 +1,5 @@
 import { apiFetch } from "@/lib/api-client";
+import { env } from "@/config/env";
 
 export interface ShowcaseSubmission {
   auraShowcaseSubmissionId: number;
@@ -13,7 +14,7 @@ export interface ShowcaseSubmission {
 
 export const getPendingSubmissions = async (adminSecret: string): Promise<ShowcaseSubmission[]> => {
   try {
-    const response = await apiFetch('http://localhost:3000/aura-farmer/admin/submissions', {
+    const response = await apiFetch(`${env.apiUrl}/aura-farmer/admin/submissions`, {
       method: 'GET',
       headers: {
         'x-admin-secret': adminSecret,
@@ -29,7 +30,7 @@ export const getPendingSubmissions = async (adminSecret: string): Promise<Showca
 
 export const approveSubmission = async (submissionId: number, adminSecret: string) => {
   try {
-    const response = await apiFetch(`http://localhost:3000/aura-farmer/admin/approve/${submissionId}`, {
+    const response = await apiFetch(`${env.apiUrl}/aura-farmer/admin/approve/${submissionId}`, {
       method: 'POST',
       headers: {
         'x-admin-secret': adminSecret,
@@ -45,7 +46,7 @@ export const approveSubmission = async (submissionId: number, adminSecret: strin
 
 export const deleteSubmission = async (submissionId: number, adminSecret: string) => {
   try {
-    const response = await apiFetch(`http://localhost:3000/aura-farmer/admin/delete/${submissionId}`, {
+    const response = await apiFetch(`${env.apiUrl}/aura-farmer/admin/delete/${submissionId}`, {
       method: 'POST',
       headers: {
         'x-admin-secret': adminSecret,
