@@ -28,6 +28,7 @@ export const CurrentWinner = ({ topAuraFarmer, isTie }: CurrentWinnerProps) => {
                         votes={topAuraFarmer.votes}
                         wikiLink={topAuraFarmer.wikiLink}
                         auraFarmerId={topAuraFarmer.auraFarmerId}
+                        characterAvatar={topAuraFarmer.characterAvatar}
                     />
                     <div className="absolute -rotate-35 text-4xl -top-0 -left-3">
                         👑
