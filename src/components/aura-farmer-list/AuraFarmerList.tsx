@@ -1,6 +1,7 @@
 import { AuraFarmerListCard } from "./aura-farmer-list-card/AuraFarmerListCard";
 import { Spinner } from "@/components/ui/spinner";
 import { useAuraFarmerList } from "./aura-farmer-list-card/useAuraFarmerList";
+import { AddAuraFarmerDialog } from "./AddAuraFarmerDialog";
 
 export type TAuraFarmer = {
   auraFarmerId?: number;
@@ -16,7 +17,7 @@ export type TAuraFarmer = {
 
 export const AuraFarmerList = () => {
   const { error, loading, lastClicked, userVote, optimisticCards, handleAuraFarmerUpvote, isPending } = useAuraFarmerList();
-  
+
   return (
     <div className="container mt-3">
       <h2 className="font-bold mb-3">All Aura Farmers</h2>
@@ -29,7 +30,13 @@ export const AuraFarmerList = () => {
 
       {typeof error === "string" && <div>{error}</div>}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+      {
+        !loading && !error && optimisticCards.length === 0 && (
+          <div className="flex justify-center items-center py-2 border border-dashed border-slate-300 rounded-lg">❌ No aura farmers found</div>
+        )
+      }
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 items-stretch">
         {optimisticCards.map((farmer) => (
           <AuraFarmerListCard
             key={farmer.auraFarmerId}
@@ -42,6 +49,7 @@ export const AuraFarmerList = () => {
           />
         ))}
       </div>
+      <AddAuraFarmerDialog />
     </div>
   );
 };

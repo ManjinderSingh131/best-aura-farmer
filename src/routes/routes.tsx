@@ -2,6 +2,8 @@ import { Route } from "react-router-dom";
 import Layout from "../components/layout/Layout";
 import { AuraFarmerList } from "../components/aura-farmer-list/AuraFarmerList";
 import { Home } from "@/components/home/Home";
+import { AdminPage } from "./admin-page";
+import { AdminFarmerRequestsPage } from "./admin-farmer-requests-page";
 
 
 export const routes = (
@@ -20,6 +22,9 @@ export const routes = (
       <Route path=":id" element={<div>Character Details Page</div>} />
       <Route path="search" element={<div>Character Search Page</div>} />
     </Route>
+
+    <Route path="admin" element={<AdminPage />} />
+    <Route path="admin/farmer-requests" element={<AdminFarmerRequestsPage />} />
 
     <Route path="*" element={<div>404 Not Found</div>} />
   </Route>

@@ -1,12 +1,14 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { TAuraFarmer } from "../aura-farmer-list/AuraFarmerList";
+import { Spinner } from "../ui/spinner";
 
 type LeaderboardProps = {
     top10AuraFarmers: TAuraFarmer[];
     isTie: boolean;
+    loading: boolean;
 };
 
-export const Leaderboard = ({ top10AuraFarmers, isTie }: LeaderboardProps) => {
+export const Leaderboard = ({ top10AuraFarmers, isTie, loading }: LeaderboardProps) => {
     const maxVotes = top10AuraFarmers.length > 0 ? top10AuraFarmers[0].votes : 0;
 
     return (
@@ -14,7 +16,12 @@ export const Leaderboard = ({ top10AuraFarmers, isTie }: LeaderboardProps) => {
             <h2 className="text-2xl mb-4 text-center italic">Live Leaderboard</h2>
             <hr />
             <div className="space-y-4 mt-2">
-                {top10AuraFarmers.map((farmer, index) => (
+                {loading && (
+                    <div className="flex justify-center items-center py-10">
+                        <Spinner className="size-12 text-green-500" />
+                    </div>
+                )}
+                {!loading && top10AuraFarmers.map((farmer, index) => (
                     <div key={farmer.auraFarmerId} className="relative border-b border-dashed border-slate-200 pb-2">
                         <div className="flex items-center justify-between mb-2 z-10 relative">
                             <div className="flex items-center gap-2">
@@ -42,7 +49,7 @@ export const Leaderboard = ({ top10AuraFarmers, isTie }: LeaderboardProps) => {
                         </div>
                     </div>
                 ))}
-                {top10AuraFarmers.length === 0 && (
+                {!loading && top10AuraFarmers.length === 0 && (
                     <div className="text-center text-gray-500">No data available</div>
                 )}
             </div>

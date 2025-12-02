@@ -3,9 +3,10 @@ import { useOptimistic } from "react";
 import type { TAuraFarmer } from "../AuraFarmerList";
 import { getAllAuraFarmers, unvoteAuraFarmer, updateAuraFarmerVote } from "@/service/aura-farmer.service";
 import useSound from "use-sound";
+import { toast } from "sonner";
 
 export const useAuraFarmerList = () => {
-    const SOUND_URL = '/dap-sound.mp3';  
+    const SOUND_URL = '/dap-sound.mp3';
     const [playDapSound] = useSound(SOUND_URL);
     const [auraFarmers, setAuraFarmers] = useState<TAuraFarmer[]>([]);
     const [error, setError] = useState<unknown>(null);
@@ -86,8 +87,21 @@ export const useAuraFarmerList = () => {
                 try {
                     await unvoteAuraFarmer(clickedId);
                     refreshAuraFarmers();
-                } catch (err) {
-                    setError(err);
+                } catch (err: any) {
+                    // Revert state on error
+                    setUserVote(previousVote);
+                    if (previousVote) {
+                        localStorage.setItem("votedAuraFarmerId", previousVote.toString());
+                    } else {
+                        localStorage.removeItem("votedAuraFarmerId");
+                    }
+                    setLastClicked(null);
+
+                    if (err.statusCode === 429) {
+                        toast.error("You are doing that too much. Try again in a few minutes.");
+                    } else {
+                        setError(err);
+                    }
                 }
             });
 
@@ -124,8 +138,21 @@ export const useAuraFarmerList = () => {
                 }
 
                 refreshAuraFarmers();
-            } catch (err) {
-                setError(err);
+            } catch (err: any) {
+                // Revert state on error
+                setUserVote(previousVote);
+                if (previousVote) {
+                    localStorage.setItem("votedAuraFarmerId", previousVote.toString());
+                } else {
+                    localStorage.removeItem("votedAuraFarmerId");
+                }
+                setLastClicked(null);
+
+                if (err.statusCode === 429) {
+                    toast.error("You are doing that too much. Try again in a few minutes.");
+                } else {
+                    setError(err);
+                }
             }
         });
     };
@@ -151,5 +178,5 @@ export const useAuraFarmerList = () => {
         refreshAuraFarmers,
         handleAuraFarmerUpvote,
         isTie
-    };  
+    };
 }

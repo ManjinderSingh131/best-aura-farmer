@@ -1,6 +1,6 @@
 import { Spinner } from "../ui/spinner";
 import { useAuraFarmerDetail } from "./useAuraFarmerDetail";
-
+import { SubmitShowcaseDialog } from "./SubmitShowcaseDialog";
 
 type AuraFarmerShowcaseProps = {
     auraFarmerId: number;
@@ -19,11 +19,13 @@ function toEmbedUrl(url: string) {
     return `https://www.youtube.com/embed/${id}`;
 }
 
-
 export const AuraFarmerShowcase = ({ auraFarmerId }: AuraFarmerShowcaseProps) => {
     const { auraFarmShowcase, loading, error } = useAuraFarmerDetail({ auraFarmerId });
     return (
         <div className="flex flex-col gap-2">
+            <div className="flex justify-end items-center">
+                <SubmitShowcaseDialog auraFarmerId={auraFarmerId} />
+            </div>
             {
                 loading && (
                     <div className="flex justify-center items-center py-10">
@@ -38,13 +40,18 @@ export const AuraFarmerShowcase = ({ auraFarmerId }: AuraFarmerShowcaseProps) =>
                 {
                     !loading && auraFarmShowcase.length === 0 && <h3>❌ No showcase available</h3>
                 }
-                {auraFarmShowcase.map((url: string, index: number) => (
-                    <div className="w-fulllg:w-[30%] h-80 rounded-lg" key={index}>
-                        <iframe src={toEmbedUrl(url)}
-                            height={'100%'}
-                            width={'100%'}
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen
-                        />
+                {auraFarmShowcase.map((item: any, index: number) => (
+                    <div className="w-full lg:w-[30%] flex flex-col gap-2" key={index}>
+                        <div className="h-80 rounded-lg overflow-hidden">
+                            <iframe src={toEmbedUrl(item.showcaseYoutubeUrl)}
+                                height={'100%'}
+                                width={'100%'}
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen
+                            />
+                        </div>
+                        <p className="text-sm text-muted-foreground text-right">
+                            Added by: <span className="font-semibold">{item.addedBy}</span>
+                        </p>
                     </div>
                 ))}
             </div>

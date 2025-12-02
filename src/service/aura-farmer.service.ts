@@ -1,8 +1,11 @@
+import { apiFetch } from "@/lib/api-client";
+
 export const getAllAuraFarmers = async () => {
     try {
-        const resonse = await fetch('http://localhost:3000/aura-farmer');
+        const resonse = await apiFetch('http://localhost:3000/aura-farmer');
         const data = await resonse.json();
         return data;
+
     } catch(error) {
         console.log(error);
         throw error;
@@ -11,24 +14,26 @@ export const getAllAuraFarmers = async () => {
 
 export const updateAuraFarmerVote = async (auraFarmerId: number) => {
     try {
-        const resonse = await fetch(`http://localhost:3000/aura-farmer/${auraFarmerId}/update-vote`, {
+        const resonse = await apiFetch(`http://localhost:3000/aura-farmer/${auraFarmerId}/update-vote`, {
             method: 'POST',
         });
         const data = await resonse.json();
         return data;
+
     } catch(error) {
-        console.log(error);
+        console.debug(error, 'error is::::');
         throw error;
     }
 }
 
 export const unvoteAuraFarmer = async (auraFarmerId: number) => {
     try {
-        const resonse = await fetch(`http://localhost:3000/aura-farmer/${auraFarmerId}/unvote`, {
+        const resonse = await apiFetch(`http://localhost:3000/aura-farmer/${auraFarmerId}/unvote`, {
             method: 'POST',
         });
         const data = await resonse.json();
         return data;
+
     } catch(error) {
         console.log(error);
         throw error;
@@ -37,9 +42,10 @@ export const unvoteAuraFarmer = async (auraFarmerId: number) => {
 
 export const getAuraFarmShowcase = async (auraFarmerId: number) => {
     try {
-        const resonse = await fetch(`http://localhost:3000/aura-farmer/${auraFarmerId}/showcase`);
+        const resonse = await apiFetch(`http://localhost:3000/aura-farmer/${auraFarmerId}/showcase`);
         const data = await resonse.json();
         return data;
+
     } catch(error) {
         console.log(error);
         throw error;
