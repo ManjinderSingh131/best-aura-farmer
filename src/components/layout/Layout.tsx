@@ -22,6 +22,9 @@ export default function Layout() {
       <main className="px-2 py-6 container mx-auto">
         <Outlet />
       </main>
+      <footer className="text-center text-slate-500 py-2 border-t border-dashed border-slate-200">
+        <p>{`© ${new Date().getFullYear()} Best Aura Farmer. All rights reserved.`}</p>
+      </footer>
     </>
   );
 }
